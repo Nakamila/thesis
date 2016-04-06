@@ -30,7 +30,7 @@ void setup() {
 void loop() {
 
   float volt[rN];
-  float timer[rN];
+  float Time[rN];
   float Count[rN];
 
 
@@ -40,40 +40,44 @@ void loop() {
   float count = 0;
   float aux = 0;
 
+ 
+  //  Time = reading/1000 * TimeBetweenReadings;
+  //  Serial.println(Time);
+
 
   for (int readIndex = 0; readIndex <= rN; readIndex++) {
-
-    timer[readIndex] = (readIndex/ 1000 * TimeBetweenReadings);//does the division first to avoid overflows
-        Serial.println(timer[readIndex]);
-      //  Serial.print("\t");
+  
+    Time[readIndex] = (readIndex/1000.0*TimeBetweenReadings); //does the division first to avoid overflows
+    Serial.println(Time[readIndex]);
+    //Serial.print("\t");
 
     Count[readIndex] = analogRead(A0); // reads raw number
-
-    volt[readIndex] = Count[readIndex] / 1023 * 5.0;// convert from count to raw voltage
-    //    Serial.println(volt[readIndex]);
-
     delay(TimeBetweenReadings);// delay in between reads for stability
- 
+    
+    volt[readIndex] = Count[readIndex] / 1023 * 5.0;// convert from count to raw voltage
+    //Serial.println(volt[readIndex]);
 
- 
-
-    if (volt[readIndex] >= 4.6) { // using only the peaks moment
-      t2 = timer[readIndex];
-      aux = t2 - t1;  // find the present beat-to-beat interval
-      sum = aux + sum; // add the present beat-to-beat interval to the previous one
-      count = count++;   // find out how many times the PEAKS occured I have in 15 seconds to be able to calculate a media of beat-to-beat interval for that amount of time
-      t2 = t1;
-
-    }
-
-//    if (readingNow >= rN) {
-//      Serial.println("I AM DONE!");
-//      //      delay(60000); // stop for a minute
-//      //      readIndex = 0;
-//    }
   }
-
 }
+
+
+
+
+    //    if (volt[readIndex] >= 4.6) { // using only the peaks moment
+    //      t2 = timer[readIndex];
+    //      aux = t2 - t1;  // find the present beat-to-beat interval
+    //      sum = aux + sum; // add the present beat-to-beat interval to the previous one
+    //      count = count++;   // find out how many times the PEAKS occured I have in 15 seconds to be able to calculate a media of beat-to-beat interval for that amount of time
+    //      t2 = t1;
+    //
+    //    }
+
+    //    if (readingNow >= rN) {
+    //      Serial.println("I AM DONE!");
+    //      //      delay(60000); // stop for a minute
+    //      //      readIndex = 0;
+    //    }
+
 // if we're at the end of the array...
 //  if (readIndex >= rN) {
 //    // .stop reading:
