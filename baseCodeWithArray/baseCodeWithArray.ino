@@ -63,7 +63,25 @@ void loop() {
           t2 = t1;
     
         }
+        
       
+//  float media = sum/count;  // media of beat to beat intervals during the 15 seconds
+//  float sum_var = 0;
+//  float var = 0; 
+//
+// 
+//  for (int readIndex = 0; readIndex < 380 ; readIndex++) { // for the same data analyzed before - needs to be in an array - analyze: 
+//   if (volt[readIndex] >=4.30) { // for the peaks
+//    t2 = Time[readIndex];
+//    aux = t2 -t1; // find the present beat-to-beat interval
+//    var = (media - aux)*(media -aux); // power of 2, so you can analyze only the positive numbers
+//    sum_var = var + sum_var; // using the var value of all the intervals of beats is possible to find the total variance of the time period of 15 seconds. 
+//
+//   }
+//  }
+//  float variance = sum_var/count; // variance (the media of all the var values per times occured- will be evaluated to return light color results - the lower the variance, more coherent is the HRV
+//  
+//  Serial.println(variance);
     }
   
   }
