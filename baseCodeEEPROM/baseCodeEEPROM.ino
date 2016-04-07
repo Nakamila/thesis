@@ -8,13 +8,17 @@ to change the rate.
 See www.vernier.com/arduino for more information.
  */
 
+
+#include <EEPROM.h>
+
+
 int rN = 1500; // total number of readings = 10 readings per second for 15 seconds
-int TimeBetweenReadings = 20; // using enough readings to find all the peaks of the heart beat
+int TimeBetweenReadings = 10; // using enough readings to find all the peaks of the heart beat
 
 
 
-//boolean readingSensor;
-//boolean displayResult;
+boolean readingSensor;
+boolean displayResult;
 
 void setup() {
   // initialize serial communication at 9600 bits per second:
@@ -33,16 +37,16 @@ void loop() {
   float Time[rN];
   float Count[rN];
 
-  
-    float t1 = 0;
-    float t2 = 0;
-    float sum = 0;
-    float count = 0;
-    float aux = 0;
+  //
+  //  float t1 = 0;
+  //  float t2 = 0;
+  //  float sum = 0;
+  //  float count = 0;
+  //  float aux = 0;
 
 
 
-  for (int readIndex = 0; readIndex < 380 ; readIndex++) {
+  for (int readIndex = 0; readIndex < 5000.0 ; readIndex++) {
 
     Time[readIndex] = (readIndex / 1000.0 * TimeBetweenReadings); //does the division first to avoid overflows
     Serial.print(Time[readIndex]);
@@ -54,18 +58,8 @@ void loop() {
     volt[readIndex] = Count[readIndex] / 1023 * 5.0;// convert from count to raw voltage
     Serial.println(volt[readIndex]);
     
-   
-    if (volt[readIndex] >= 4.30) { // using only the peaks moment
-         t2 = Time[readIndex];
-          aux = t2 - t1;  // find the present beat-to-beat interval
-          sum = aux + sum; // add the present beat-to-beat interval to the previous one
-          count = count++;   // find out how many times the PEAKS occured I have in 15 seconds to be able to calculate a media of beat-to-beat interval for that amount of time
-          t2 = t1;
-    
-        }
-      
-    }
-  
+
   }
+}
 
 
